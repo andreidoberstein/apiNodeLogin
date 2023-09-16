@@ -484,7 +484,6 @@ router.delete('/user/:id', deleteUser);
 module.exports = router;
 ```
 
-
 Criar arquivo loginRouter.js na pasta routes
 ```
 touch src/routes/loginRouter.js
@@ -501,4 +500,9 @@ const { login } = require('../controllers/loginController');
 router.post('/login', login);
 
 module.exports = router;
+```
+
+Abrir o arquivo package.json e alterar o comando na chave scripts
+```
+"start":"nodemon src/server.js"
 ```
