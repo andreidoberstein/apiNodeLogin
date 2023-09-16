@@ -1,0 +1,21 @@
+{
+  "name": "apilogin",
+  "version": "1.0.0",
+  "description": "1. Criando o banco de dados\r 2. Criando a API\r 3. Adicionar usuário\r 4. Listagem de usuários\r 5. Pesquisar usuário\r 6. Editar usuário\r 7. Excluir usuário",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1"
+  }
+}
