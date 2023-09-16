@@ -18,7 +18,7 @@ use sistema_login;
 
 # Criar a tabela de usuários
 create table usuarios (
-	id int auto_increment not null,
+    id int auto_increment not null,
     nome varchar(120) not null,
     email varchar(120) not null,    
     senha varchar(120) not null,
@@ -125,7 +125,7 @@ mkdir src/config src/controllers src/routes
 
 <hr>
 
-#### Iniciar configurações dos arquivos
+### Iniciar configurações dos arquivos
 
 Abrir o arquivo app.js e informar as configurações da api
 ```
@@ -214,7 +214,7 @@ const bcrypt = require('bcrypt');
 // Função que retorna todos usuários no banco de dados
 async function listUsers(request, response) {
     // Preparar o comando de execução no banco
-    connection.query('SELECT * FROM users', (resultserr, ) => { 
+    connection.query('SELECT * FROM usuarios', (err, results) => { 
         try {  // Tenta retornar as solicitações requisitadas
             if (results) {  // Se tiver conteúdo 
                 response.status(200).json({
@@ -246,14 +246,13 @@ async function listUsers(request, response) {
 // Função que cria um novo usuário 
 async function storeUser(request, response) {
     // Preparar o comando de execução no banco
-    const query = 'INSERT INTO users(name, email, password, status) VALUES(?, ?, ?, ?);';
+    const query = 'INSERT INTO usuarios(nome, email, senha) VALUES(?, ?, ?);';
 
     // Recuperar os dados enviados na requisição
     const params = Array(
-        request.body.name,
+        request.body.nome,
         request.body.email,
-        bcrypt.hashSync(request.body.password, 10),
-        request.body.status
+        bcrypt.hashSync(request.body.senha, 10)
     );
 
     // Executa a ação no banco e valida os retornos para o client que realizou a solicitação
@@ -291,13 +290,12 @@ async function storeUser(request, response) {
 // Função que atualiza o usuário no banco
 async function updateUser(request, response) {
     // Preparar o comando de execução no banco
-    const query = "UPDATE users SET `ds_nome` = ?, `ds_password` = ?, `fl_status` = ? WHERE `id_user` = ?";
+    const query = "UPDATE usuarios SET `nome` = ?, `senha` = ? WHERE `id` = ?";
 
     // Recuperar os dados enviados na requisição respectivamente
     const params = Array(
-        request.body.ds_nome,
-        bcrypt.hashSync(request.body.ds_password, 10),
-        request.body.fl_status,
+        request.body.nome,
+        bcrypt.hashSync(request.body.senha, 10),        
         request.params.id  // Recebimento de parametro da rota
     );
 
@@ -336,7 +334,7 @@ async function updateUser(request, response) {
 // Função que remove usuário no banco
 async function deleteUser(request, response) {
     // Preparar o comando de execução no banco
-    const query = "DELETE FROM users WHERE `id_user` = ?";
+    const query = "DELETE FROM usuarios WHERE `id` = ?";
 
     // Recebimento de parametro da rota
     const params = Array(
@@ -388,7 +386,6 @@ Criar arquivo loginController.js na pasta controllers
 touch src/controllers/loginController.js
 ```
 Abrir o arquivo loginController.js e informar as configurações
-
 ```
 // Importa as configurações do banco de dados na variável connection
 const connection = require('../config/db');
@@ -402,7 +399,7 @@ const jwt = require('jsonwebtoken');
 // Authentication
 async function login(request, response) {
     // Preparar o comando de execução no banco
-    const query = "SELECT * FROM users WHERE `email` = ?";
+    const query = "SELECT * FROM usuarios WHERE `email` = ?";
     
     // Recuperar credenciais informadas
     const params = Array(
@@ -413,13 +410,13 @@ async function login(request, response) {
     connection.query(query, params, (err, results) => {
         try {            
             if (results.length > 0) {                
-                bcrypt.compare(request.body.password, results[0].password, (err, result) => {
+                bcrypt.compare(request.body.senha, results[0].senha, (err, result) => {
                     if (err) {                        
                         return response.status(401).send({
-                          msg: 'Email or password is incorrect!'
+                            msg: 'Email or password is incorrect!'
                         });
                     } else if(result) {
-                        const id = results[0].id_user;
+                        const id = results[0].id;
                         const token = jwt.sign({ userId: id },'the-super-strong-secrect',{ expiresIn: 300 });
                         results[0]['token'] = token; 
                         
