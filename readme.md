@@ -65,6 +65,11 @@ Criar arquivo .env
 touch .env
 ```
 
+Abrir o VSCode
+```
+code .
+```
+
 Informar arquivos no .gitignore
 ```
 node_modules
