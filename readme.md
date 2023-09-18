@@ -1,14 +1,12 @@
-# Passo a passo API de registro e login de usuário 👨‍💻
+# Passo a passo API CRUD de usuario e login 👨‍💻
 
 1. Criando o banco de dados
 2. Criando a API
-3. Adicionar usuário
-4. Listagem de usuários
-5. Pesquisar usuário
-6. Editar usuário
-7. Excluir usuário
+3. CRUD de usuários
+4. Login de usuário
+5. Testes da API com Insomnia
 
-## 1. Criando o banco de dados
+## Criando o banco de dados
 ```
 # Criar a database
 create database sistema_login;
