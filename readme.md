@@ -92,6 +92,10 @@ DB_PASSWORD = 'root'
 DB_DATABASE = 'sistema_login'
 ```
 
+A origem das informações do banco de dados estão na configuração do workbench conforme a imagem
+
+<img src="assets/mysql.png">
+
 ### Estrutura de pastas e arquivos do projeto
 Criar pasta src na raiz
 ```
@@ -506,3 +510,27 @@ Abrir o arquivo package.json e alterar o comando na chave scripts
 ```
 "start":"nodemon src/server.js"
 ```
+
+Rodar a aplicação
+```
+npm start
+```
+
+Tela de teste da API
+
+<img src="./assets/npm_start.png">
+
+
+## Testar rotas da API com Insomnia
+
+Inserir usuário
+
+<img src="./assets/create_user.png">
+
+Validação no banco de dados
+
+<img src="assets/select_usuarios.png">
+
+Logar com usuário cadastrado
+
+<img src="assets/login.png">
